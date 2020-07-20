@@ -8,19 +8,19 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.atguigu.gmall.common.bean.PageResultVo;
 import com.atguigu.gmall.common.bean.PageParamVo;
 
-import com.atguigu.gmall.sms.mapper.SpuBoundsMapper;
-import com.atguigu.gmall.sms.entity.SpuBoundsEntity;
-import com.atguigu.gmall.sms.service.SpuBoundsService;
+import com.atguigu.gmall.sms.mapper.UndoLogMapper;
+import com.atguigu.gmall.sms.entity.UndoLogEntity;
+import com.atguigu.gmall.sms.service.UndoLogService;
 
 
-@Service("spuBoundsService")
-public class SpuBoundsServiceImpl extends ServiceImpl<SpuBoundsMapper, SpuBoundsEntity> implements SpuBoundsService {
+@Service("undoLogService")
+public class UndoLogServiceImpl extends ServiceImpl<UndoLogMapper, UndoLogEntity> implements UndoLogService {
 
     @Override
     public PageResultVo queryPage(PageParamVo paramVo) {
-        IPage<SpuBoundsEntity> page = this.page(
+        IPage<UndoLogEntity> page = this.page(
                 paramVo.getPage(),
-                new QueryWrapper<SpuBoundsEntity>()
+                new QueryWrapper<UndoLogEntity>()
         );
 
         return new PageResultVo(page);

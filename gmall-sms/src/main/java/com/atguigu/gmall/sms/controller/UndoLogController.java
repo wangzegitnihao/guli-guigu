@@ -13,26 +13,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.atguigu.gmall.sms.entity.SpuBoundsEntity;
-import com.atguigu.gmall.sms.service.SpuBoundsService;
+import com.atguigu.gmall.sms.entity.UndoLogEntity;
+import com.atguigu.gmall.sms.service.UndoLogService;
 import com.atguigu.gmall.common.bean.PageResultVo;
 import com.atguigu.gmall.common.bean.ResponseVo;
 import com.atguigu.gmall.common.bean.PageParamVo;
 
 /**
- * 商品spu积分设置
+ * 
  *
  * @author zege
  * @email zege@atguigu.com
- * @date 2020-07-17 00:27:11
+ * @date 2020-07-19 06:32:24
  */
-@Api(tags = "商品spu积分设置 管理")
+@Api(tags = " 管理")
 @RestController
-@RequestMapping("sms/spubounds")
-public class SpuBoundsController {
+@RequestMapping("sms/undolog")
+public class UndoLogController {
 
     @Autowired
-    private SpuBoundsService spuBoundsService;
+    private UndoLogService undoLogService;
 
     /**
      * 列表
@@ -40,7 +40,7 @@ public class SpuBoundsController {
     @GetMapping
     @ApiOperation("分页查询")
     public ResponseVo<PageResultVo> list(PageParamVo paramVo){
-        PageResultVo pageResultVo = spuBoundsService.queryPage(paramVo);
+        PageResultVo pageResultVo = undoLogService.queryPage(paramVo);
 
         return ResponseVo.ok(pageResultVo);
     }
@@ -51,10 +51,10 @@ public class SpuBoundsController {
      */
     @GetMapping("{id}")
     @ApiOperation("详情查询")
-    public ResponseVo<SpuBoundsEntity> querySpuBoundsById(@PathVariable("id") Long id){
-		SpuBoundsEntity spuBounds = spuBoundsService.getById(id);
+    public ResponseVo<UndoLogEntity> queryUndoLogById(@PathVariable("id") Long id){
+		UndoLogEntity undoLog = undoLogService.getById(id);
 
-        return ResponseVo.ok(spuBounds);
+        return ResponseVo.ok(undoLog);
     }
 
     /**
@@ -62,8 +62,8 @@ public class SpuBoundsController {
      */
     @PostMapping
     @ApiOperation("保存")
-    public ResponseVo<Object> save(@RequestBody SpuBoundsEntity spuBounds){
-		spuBoundsService.save(spuBounds);
+    public ResponseVo<Object> save(@RequestBody UndoLogEntity undoLog){
+		undoLogService.save(undoLog);
 
         return ResponseVo.ok();
     }
@@ -73,8 +73,8 @@ public class SpuBoundsController {
      */
     @PostMapping("/update")
     @ApiOperation("修改")
-    public ResponseVo update(@RequestBody SpuBoundsEntity spuBounds){
-		spuBoundsService.updateById(spuBounds);
+    public ResponseVo update(@RequestBody UndoLogEntity undoLog){
+		undoLogService.updateById(undoLog);
 
         return ResponseVo.ok();
     }
@@ -85,7 +85,7 @@ public class SpuBoundsController {
     @PostMapping("/delete")
     @ApiOperation("删除")
     public ResponseVo delete(@RequestBody List<Long> ids){
-		spuBoundsService.removeByIds(ids);
+		undoLogService.removeByIds(ids);
 
         return ResponseVo.ok();
     }

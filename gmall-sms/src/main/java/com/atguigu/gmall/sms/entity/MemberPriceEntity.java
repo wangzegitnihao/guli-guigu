@@ -13,7 +13,7 @@ import lombok.Data;
  * 
  * @author zege
  * @email zege@atguigu.com
- * @date 2020-07-17 00:27:11
+ * @date 2020-07-19 06:32:24
  */
 @Data
 @TableName("sms_member_price")

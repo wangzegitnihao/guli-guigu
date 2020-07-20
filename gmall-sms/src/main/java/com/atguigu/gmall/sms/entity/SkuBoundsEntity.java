@@ -13,11 +13,11 @@ import lombok.Data;
  * 
  * @author zege
  * @email zege@atguigu.com
- * @date 2020-07-17 00:27:11
+ * @date 2020-07-19 06:32:24
  */
 @Data
-@TableName("sms_spu_bounds")
-public class SpuBoundsEntity implements Serializable {
+@TableName("sms_sku_bounds")
+public class SkuBoundsEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -28,7 +28,7 @@ public class SpuBoundsEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private Long spuId;
+	private Long skuId;
 	/**
 	 * 成长积分
 	 */
