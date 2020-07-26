@@ -32,7 +32,7 @@ public class OSSController {
     String dir = sdf.format(new Date()); // 用户上传文件时指定的前缀。
 
     @GetMapping("policy")
-    public ResponseVo <Object> policy() throws UnsupportedEncodingException {
+    public ResponseVo<Object> policy() throws UnsupportedEncodingException {
 
         OSSClient client = new OSSClient(endpoint, accessId, accessKey);
 

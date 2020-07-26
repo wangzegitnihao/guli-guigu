@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2020-07-17 00:30:32
  */
 @Mapper
-public interface WareOrderBillDetailMapper extends BaseMapper<WareOrderBillDetailEntity> {
+public interface WareOrderBillDetailMapper extends BaseMapper<WareOrderBillDetailEntity
+        > {
 	
 }

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: search-service
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        namespace: e0583ec3-7de0-4b0f-9c42-92b7b82a0cc8
+        group: dev
+        file-extension: yml  # 默认找服务名.properties文件
+

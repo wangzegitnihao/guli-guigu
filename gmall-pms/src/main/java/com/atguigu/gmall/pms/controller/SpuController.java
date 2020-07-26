@@ -3,6 +3,11 @@ package com.atguigu.gmall.pms.controller;
 import java.util.List;
 
 import com.atguigu.gmall.pms.vo.SpuVo;
+import com.atguigu.gmall.common.bean.PageParamVo;
+import com.atguigu.gmall.common.bean.PageResultVo;
+import com.atguigu.gmall.common.bean.ResponseVo;
+import com.atguigu.gmall.pms.entity.SpuEntity;
+import com.atguigu.gmall.pms.service.SpuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.atguigu.gmall.pms.entity.SpuEntity;
-import com.atguigu.gmall.pms.service.SpuService;
-import com.atguigu.gmall.common.bean.PageResultVo;
-import com.atguigu.gmall.common.bean.ResponseVo;
-import com.atguigu.gmall.common.bean.PageParamVo;
 
 /**
  * spu信息
@@ -38,7 +36,6 @@ public class SpuController {
     @ApiOperation("spu商品信息查询")
     @GetMapping("category/{categoryId}")
     public ResponseVo<PageResultVo> querySpuInfo(PageParamVo pageParamVo, @PathVariable("categoryId")Long categoryId){
-
         PageResultVo pageResultVo = this.spuService.querySpuInfo(pageParamVo, categoryId);
         return ResponseVo.ok(pageResultVo);
     }
@@ -52,7 +49,12 @@ public class SpuController {
 
         return ResponseVo.ok(pageResultVo);
     }
-
+    @PostMapping("page")
+    public ResponseVo<List<SpuEntity>> querySpusByPage(@RequestBody PageParamVo pageParamVo){
+        PageResultVo page = spuService.queryPage(pageParamVo);
+        List<SpuEntity> list = (List<SpuEntity>)page.getList();
+        return ResponseVo.ok(list);
+    }
 
     /**
      * 信息
@@ -71,7 +73,6 @@ public class SpuController {
     @PostMapping
     @ApiOperation("保存")
     public ResponseVo<Object> save(@RequestBody SpuVo spuVo){
-		//spuService.save(spuVo);
         this.spuService.bigSave(spuVo);
         return ResponseVo.ok();
     }

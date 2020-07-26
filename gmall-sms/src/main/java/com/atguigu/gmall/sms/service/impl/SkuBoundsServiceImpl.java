@@ -1,29 +1,29 @@
 package com.atguigu.gmall.sms.service.impl;
 
+import com.atguigu.gmall.sms.api.vo.SaleVo;
+import com.atguigu.gmall.sms.service.SkuBoundsService;
 import com.atguigu.gmall.sms.entity.SkuFullReductionEntity;
 import com.atguigu.gmall.sms.entity.SkuLadderEntity;
 import com.atguigu.gmall.sms.mapper.SkuFullReductionMapper;
 import com.atguigu.gmall.sms.mapper.SkuLadderMapper;
-import com.atguigu.gmall.sms.vo.SkuSaleVo;
+import com.atguigu.gmall.common.bean.PageParamVo;
+import com.atguigu.gmall.common.bean.PageResultVo;
+import com.atguigu.gmall.sms.entity.SkuBoundsEntity;
+import com.atguigu.gmall.sms.mapper.SkuBoundsMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.atguigu.gmall.common.bean.PageResultVo;
-import com.atguigu.gmall.common.bean.PageParamVo;
 
-import com.atguigu.gmall.sms.mapper.SkuBoundsMapper;
-import com.atguigu.gmall.sms.entity.SkuBoundsEntity;
-import com.atguigu.gmall.sms.service.SkuBoundsService;
-import org.springframework.util.CollectionUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("skuBoundsService")
+@Transactional
 public class SkuBoundsServiceImpl extends ServiceImpl<SkuBoundsMapper, SkuBoundsEntity> implements SkuBoundsService {
     @Autowired
     private SkuFullReductionMapper reductionMapper;
@@ -42,19 +42,17 @@ public class SkuBoundsServiceImpl extends ServiceImpl<SkuBoundsMapper, SkuBounds
     }
 
     @Override
-    public void saveSales(SkuSaleVo saleVo) {
+    public void saveSales(SaleVo saleVo) {
         // 3.1. 积分优惠
         SkuBoundsEntity skuBoundsEntity = new SkuBoundsEntity();
         skuBoundsEntity.setSkuId(saleVo.getSkuId());
         skuBoundsEntity.setBuyBounds(saleVo.getBuyBounds());
         skuBoundsEntity.setGrowBounds(saleVo.getGrowBounds());
         BeanUtils.copyProperties(saleVo, skuBoundsEntity);
-        // 数据库保存的是整数0-15，页面绑定是0000-1111
         List<Integer> work = saleVo.getWork();
-        if (!CollectionUtils.isEmpty(work)){
-            skuBoundsEntity.setWork(work.get(0) * 8 + work.get(1) * 4 + work.get(2) * 2 + work.get(3));
-        }
+        skuBoundsEntity.setWork(work.get(3) * 8 + work.get(2) * 4 + work.get(1) * 2 + work.get(0));
         this.save(skuBoundsEntity);
+
 
         SkuFullReductionEntity reductionEntity = new SkuFullReductionEntity();
         reductionEntity.setSkuId(saleVo.getSkuId());
@@ -67,7 +65,7 @@ public class SkuBoundsServiceImpl extends ServiceImpl<SkuBoundsMapper, SkuBounds
         ladderEntity.setSkuId(saleVo.getSkuId());
         ladderEntity.setFullCount(saleVo.getFullCount());
         ladderEntity.setDiscount(saleVo.getDiscount());
-        ladderEntity.setAddOther(saleVo.getAddOther());
+        ladderEntity.setAddOther(saleVo.getLadderAddOther());
         this.ladderMapper.insert(ladderEntity);
     }
 
