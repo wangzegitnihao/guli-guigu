@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Aspect
 @Configuration
+
 public class RedisAspect {
     private Logger logger = LoggerFactory.getLogger(getClass());
     //是否开启redis缓存  true开启   false关闭
@@ -32,6 +33,7 @@ public class RedisAspect {
 
     @Around("execution(* com.atguigu.common.utils.RedisUtils.*(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
+        System.out.println("111111111");
         Object result = null;
         if(open){
             try{
